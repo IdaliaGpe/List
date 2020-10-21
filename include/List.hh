@@ -22,4 +22,6 @@ public:
 
     void PrintFront();
     void PrintBack();
+
+    void Pop();
 };

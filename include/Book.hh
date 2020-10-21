@@ -10,4 +10,6 @@ class Book
 
         const char* GetName() const;
         const char* GetAuthor() const;
+
+        void Pop();
 };

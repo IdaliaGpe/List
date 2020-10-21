@@ -3,17 +3,36 @@
 
 List::List()
 {
-
 }
 
 List::~List()
 {
+    if(!IsEmpty())
+    {
+        Node* current = head;
+        while (current)
+        {
+            Pop();
+            current = head;
+        }
+    }
+    else
+    {
+        std::cout << "La lista esta vacia" << std::endl;
+    }
+}
 
+void List::Pop()
+{
+    Node* temp = head;
+    head = temp->next;
+    
+    delete temp;
 }
 
 void List::AddFront(Book* book)
 {
-    Node* node = {new Node(book)};
+    Node* node{new Node(book)};
     if(IsEmpty())
     {
         head = node;
@@ -33,19 +52,20 @@ void List::AddFront(Book* book)
             head = node;
             head->next->back = head;
         }
+        
     }
 }
 
 void List::AddBack(Book* book)
 {
-    Node* node = {new Node(book)};
+    Node* node{new Node(book)};
     if(IsEmpty())
     {
         tail = node;
     }
     else
     {
-        if (!head)
+        if(!head)
         {
             head = tail;
             tail = node;
@@ -58,17 +78,39 @@ void List::AddBack(Book* book)
             tail = node;
             tail->back->next = tail;
         }
+        
     }
 }
 
 void List::RemoveFront()
 {
-
+    if(!head)
+    {
+        std::cout << "Lista vacia" << std::endl;
+        return;
+    }
+    else
+    {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    
 }
 
 void List::RemoveBack()
 {
-
+    if(!tail)
+    {
+        std::cout << "Lista vacia" << std::endl;
+        return;
+    }
+    else
+    {
+        Node* temp = tail;
+        tail = tail->back;
+        delete temp;
+    }
 }
 
 Book* List::GetFront() const
@@ -94,7 +136,15 @@ void List::PrintFront()
     }
     else
     {
+        Node* temp{head};
 
+        while (temp)
+        {
+            std::cout << "Nombre del libro:" << temp->book->GetName() << std::endl;
+            std::cout << "Autor del libro:" << temp->book->GetAuthor() << std::endl;
+            temp = temp->next;
+        }
+        
     }
     
 }
@@ -107,6 +157,13 @@ void List::PrintBack()
     }
     else
     {
-        
+        Node* temp{tail};
+
+        while (temp)
+        {
+            std::cout << "Nombre del libro:" << temp->book->GetName() << std::endl;
+            std::cout << "Autor del libro:" << temp->book->GetAuthor() << std::endl;
+            temp = temp->back;
+        }
     }
 }
